@@ -1,0 +1,13 @@
+a2 = load '/user/lab/routes.dat' using PigStorage(',') as (airline_code: chararray, airline_id: int, source_airport: chararray,source_airport_id: int, destination_airport: chararray, destination_airport_id: chararray, codeshare: chararray, stops: int,
+equipment: chararray);
+
+a3 = filter a2 by airline_id == 24;
+
+a4 = filter a3 by codeshare == 'Y';
+
+a5 = GROUP a4 by destination_airport;
+
+a6 = foreach a5 generate group, COUNT(a4);
+
+dump a6;
+~
